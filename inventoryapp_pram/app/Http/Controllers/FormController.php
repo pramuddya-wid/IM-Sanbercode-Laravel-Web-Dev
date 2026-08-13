@@ -8,7 +8,7 @@ class FormController extends Controller
 {
     public function daftar()
     {
-        return view('pendaftaran');
+        return view('register');
     }
 
     public function signup(Request $request)

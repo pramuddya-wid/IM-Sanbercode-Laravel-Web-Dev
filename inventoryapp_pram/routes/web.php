@@ -6,5 +6,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
 
 Route::get('/', [DashboardController::class, 'home']);
-Route::get('/pendaftaran', [FormController::class, 'daftar']);
-Route::post('/signup', [FormController::class, 'signup']);
+Route::get('/register', [FormController::class, 'daftar']);
+Route::post('/welcome', [FormController::class, 'signup']);
+
