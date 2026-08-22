@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
-
 use Carbon\Carbon;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
-
 
     public function create()
     {
@@ -30,7 +28,7 @@ class CategoryController extends Controller
 
         //insert data
         $now = carbon::now();
-        DB::table('categories')->insert([
+        Category::insert([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'created_at' => $now,
@@ -40,27 +38,25 @@ class CategoryController extends Controller
         //Arahkan ke halaman tampil semua category
         return redirect('/category')->with('success', 'Kategori berhasil ditambahkan!');
 
-
-
     }
 
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $categories = Category::get();
         return view('category.tampil', ['categories' => $categories]);
 
     }
 
     public function show($id)
     {
-        $categories = DB::table('categories')->find($id);
+        $categories = Category::find($id);
         return view('category.detail', ['categories' => $categories]);
     }
 
     public function edit($id)
     {
 
-        $categories = DB::table('categories')->find($id);
+        $categories = Category::find($id);
         return view('category.update', ['categories' => $categories]);
 
     }
@@ -80,8 +76,7 @@ class CategoryController extends Controller
 
         //update data
         $now = carbon::now();
-        DB::table('categories')
-            ->where('id', $id)
+        Category::where('id', $id)
             ->update([
 
                 'name' => $request->input('name'),
@@ -90,18 +85,14 @@ class CategoryController extends Controller
 
             ]);
 
-
-
         //Arahkan ke halaman tampil semua category
         return redirect('/category')->with('success', 'Kategori berhasil diubah!');
-
-
 
     }
 
     public function destroy($id)
     {
-        DB::table('categories')->where('id', $id)->delete();
+        Category::where('id', $id)->delete();
 
         return redirect('/category')->with('success', 'Kategori berhasil dihapus!');
     }
